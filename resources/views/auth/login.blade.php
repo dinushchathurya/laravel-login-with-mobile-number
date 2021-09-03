@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    {{-- <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -64,7 +64,44 @@
                                 @endif
                             </div>
                         </div>
+                    </form> --}}
+                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                        {{ csrf_field() }}
+                        <div class="form-group{{ $errors->has('mobileno') ? ' has-error' : '' }}">
+                            <label for="mobileno" class="col-md-4 control-label">Enter Mobile No.</label>
+                            <div class="col-md-6">
+                                <input id="mobileno" type="text" class="form-control" name="mobileno" value="{{ old('mobileno') }}" required autofocus>
+                                @if ($errors->has('mobileno'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('mobileno') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Login
+                                </button>
+
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    Forgot Your Password?
+                                </a>
+                            </div>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
